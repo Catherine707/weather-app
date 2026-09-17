@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App - Rojo Oscuro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="weather-container">
+        <h1>App del Clima</h1>
+        
+        <!-- Buscador -->
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Escribe una ciudad (ej. Quetzaltenango)...">
+            <button id="search-btn">Buscar</button>
+        </div>
+
+        <!-- Estado de Carga -->
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Buscando información del clima...</p>
+        </div>
+
+        <!-- Estado de Error -->
+        <div id="error-message" class="hidden">
+            <p id="error-text">Ocurrió un error al obtener los datos.</p>
+        </div>
+
+        <!-- Resultados del Clima -->
+        <div id="weather-result" class="hidden">
+            <div class="current-weather">
+                <h2 id="city-name">--</h2>
+                <p id="current-temp">--°C</p>
+                <p id="apparent-temp">Sensación térmica: --°C</p>
+                <p id="weather-description">Condición: --</p>
+                <div class="details">
+                    <span>Viento: <strong id="wind-speed">-- km/h</strong></span>
+                    <span>Humedad: <strong id="humidity">--%</strong></span>
+                </div>
+            </div>
+
+            <!-- Pronóstico de 3 días -->
+            <div class="forecast-section">
+                <h3>Pronóstico para los próximos 3 días</h3>
+                <div id="forecast-cards" class="forecast-grid">
+                    <!-- Se inyecta dinámicamente con JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
