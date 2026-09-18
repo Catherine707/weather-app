@@ -20,7 +20,10 @@ cityInput.addEventListener('keypress', (e) => {
 
 async function handleSearch() {
     const cityName = cityInput.value.trim();
-    if (!cityName) return;
+    if (!cityName) {
+        showError('Ingresa el nombre de una ciudad.');
+        return;
+    }
 
     showLoading();
 
