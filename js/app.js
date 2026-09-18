@@ -44,7 +44,7 @@ async function handleSearch() {
         const country = location.country || '';
 
         // 2. Obtener el clima actual y pronóstico con Open-Meteo asegurando las coordenadas
-        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min,time&timezone=auto`;
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto`;
         
         const weatherResponse = await fetch(weatherUrl);
 
