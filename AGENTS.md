@@ -93,3 +93,21 @@ local si se requiere.
 - Mantener funciones pequeñas y con una responsabilidad clara.
 - Explicar decisiones técnicas importantes.
 - Revisar los cambios antes de realizar un commit.
+
+## 9. Flujo de la aplicación
+
+- `handleSearch()` obtiene el nombre de la ciudad ingresada por el usuario.
+- La API de geocodificación de Open-Meteo devuelve el primer resultado utilizando `count=1`.
+- La latitud y longitud obtenidas se utilizan para realizar la consulta del clima.
+- La consulta de pronóstico utiliza `timezone=auto` y `forecast_days=3`.
+- Los datos actuales utilizados son temperatura, sensación térmica, humedad, velocidad del viento y código meteorológico WMO.
+- El pronóstico utiliza `data.daily.time`, `temperature_2m_max` y `temperature_2m_min`.
+- Si la ciudad no existe o una petición falla, la aplicación debe mostrar un mensaje de error y salir del estado de carga.
+
+## 10. Relación entre archivos
+
+- `index.html` contiene la estructura de la interfaz y los identificadores utilizados por JavaScript.
+- `css/styles.css` contiene el diseño visual y la adaptación responsive.
+- `js/app.js` contiene la lógica, las peticiones a Open-Meteo y la manipulación del DOM.
+- Si se modifica un identificador utilizado por JavaScript, también debe actualizarse en `index.html`.
+- Las clases `hidden`, `forecast-grid` y `forecast-card` relacionan el estado generado por JavaScript con la presentación definida en CSS.
