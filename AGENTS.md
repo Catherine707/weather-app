@@ -1,24 +1,95 @@
 # AGENTS.md — Weather App (Open-Meteo)
 
-## 1. Stack Tecnológico
-- **Frontend:** HTML5, CSS3 y JavaScript (Vanilla / puro), sin frameworks externos.
-- **Estilos:** Diseño personalizado con una paleta de colores **rojo oscuro** (`#8b0000`, `#b22222`, `#4a0000`) como tema principal, asegurando un diseño limpio y moderno.
-- **Control de versiones:** Git / GitHub (`https://github.com/Catherine707`).
+## 1. Objetivo del proyecto
 
-## 2. Fuente de Datos (API)
-- Se utiliza la API pública y gratuita de **Open-Meteo** (sin necesidad de API keys):
-  - **Geocodificación:** `https://geocoding-api.open-meteo.com/v1/search?name={ciudad}` para resolver las coordenadas de cualquier ciudad.
-  - **Clima actual y Pronóstico:** `https://api.open-meteo.com/v1/forecast` para obtener la temperatura, sensación térmica, viento, humedad y el pronóstico de 3 días (máximas y mínimas).
+Desarrollar una aplicación web del clima que permita buscar una ciudad,
+consultar sus coordenadas mediante Open-Meteo y mostrar el clima actual
+junto con un pronóstico de tres días.
 
-## 3. Requisitos Funcionales Obligatorios
-1. **Campo de búsqueda:** Permite buscar ciudades y mapear sus coordenadas automáticamente.
-2. **Clima actual:** Muestra temperatura, condición del cielo, viento y humedad con un diseño en tonos rojo oscuro.
-3. **Pronóstico de 3 días:** Visualización clara de las temperaturas máximas y mínimas de los próximos días.
-4. **Estado de carga (Loading):** Indicador visual activo mientras se consultan las APIs.
-5. **Manejo robusto de errores:** Mensajes claros en pantalla si la ciudad no existe, si hay errores de red o desconexión (evitando bloqueos en la interfaz).
-6. **Diseño Responsivo:** Adaptado completamente para dispositivos móviles y computadoras.
+## 2. Stack tecnológico
 
-## 4. Convenciones de Código y Reglas del Proyecto
-- El código debe estar limpio, comentado y estructurado de forma modular (separando la lógica de la API de la manipulación del DOM).
-- No incluir credenciales ni llaves sensibles en el código versionado.
-- Explicar las decisiones técnicas y cambios realizados en cada paso.
+- HTML5 para la estructura de la interfaz.
+- CSS3 para el diseño visual y responsivo.
+- JavaScript puro (Vanilla JavaScript) para la lógica.
+- Fetch API para realizar las peticiones HTTP.
+- Git y GitHub para control de versiones.
+- No utilizar frameworks ni dependencias externas.
+
+## 3. Diseño visual
+
+La interfaz utiliza una paleta basada en tonos rojo oscuro:
+
+- `#8b0000`
+- `#2d0a0a`
+- `#ff4d4d`
+
+El diseño debe funcionar correctamente tanto en computadoras como en
+dispositivos móviles.
+
+## 4. Fuente de datos
+
+La aplicación utiliza la API pública y gratuita de Open-Meteo,
+sin necesidad de API keys.
+
+### Geocodificación
+
+`https://geocoding-api.open-meteo.com/v1/search`
+
+Se utiliza para transformar el nombre de una ciudad en latitud y longitud.
+
+### Pronóstico
+
+`https://api.open-meteo.com/v1/forecast`
+
+Se utiliza para obtener:
+
+- Temperatura actual.
+- Sensación térmica.
+- Humedad.
+- Velocidad del viento.
+- Código meteorológico WMO.
+- Temperatura máxima y mínima para el pronóstico de tres días.
+
+## 5. Ejecución del proyecto
+
+La aplicación no requiere instalación de dependencias.
+
+El archivo principal es:
+
+`index.html`
+
+Para realizar una comprobación sencilla puede abrirse localmente en el
+navegador. Durante el desarrollo también puede utilizarse un servidor HTTP
+local si se requiere.
+
+## 6. Requisitos funcionales
+
+1. Permitir buscar una ciudad.
+2. Ejecutar la búsqueda mediante botón o tecla Enter.
+3. Mostrar el clima actual.
+4. Mostrar un pronóstico de al menos tres días.
+5. Mostrar un indicador de carga durante las peticiones.
+6. Mostrar mensajes comprensibles cuando la ciudad no existe.
+7. Manejar errores de conexión sin congelar la aplicación.
+8. Adaptar la interfaz a pantallas de computadora y teléfono.
+
+## 7. Estructura del proyecto
+
+- `index.html`: estructura principal de la aplicación.
+- `css/styles.css`: estilos y diseño responsivo.
+- `js/app.js`: lógica JavaScript, llamadas a las APIs y manipulación del DOM.
+- `AGENTS.md`: reglas y contexto del proyecto para OpenCode.
+- `.gitignore`: archivos que Git debe ignorar.
+- `README.md`: documentación general del repositorio.
+
+## 8. Convenciones de código
+
+- Utilizar nombres descriptivos para variables y funciones.
+- Mantener separados HTML, CSS y JavaScript.
+- Utilizar `async/await` para las operaciones asíncronas.
+- Utilizar `try/catch` para manejar errores.
+- No incluir credenciales ni llaves en archivos versionados.
+- Evitar dependencias externas innecesarias.
+- Mantener funciones pequeñas y con una responsabilidad clara.
+- Explicar decisiones técnicas importantes.
+- Revisar los cambios antes de realizar un commit.
