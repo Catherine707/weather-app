@@ -55,7 +55,10 @@ async function handleSearch() {
         displayWeather(name, country, weatherData);
 
     } catch (error) {
-        showError(error.message);
+        const message = error instanceof TypeError
+            ? 'No se pudo conectar. Revisa tu conexión a Internet e inténtalo nuevamente.'
+            : error.message;
+        showError(message);
     }
 }
 
