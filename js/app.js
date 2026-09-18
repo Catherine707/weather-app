@@ -26,7 +26,8 @@ async function handleSearch() {
 
     try {
         // 1. Obtener coordenadas con la API de Geocodificación
-        const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=es&format=json`);
+        const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=es&format=json`;
+        const geoResponse = await fetch(geoUrl);
         
         if (!geoResponse.ok) throw new Error('Error de red al buscar la ciudad.');
         
@@ -36,10 +37,16 @@ async function handleSearch() {
             throw new Error(`No se encontró la ciudad "${cityName}". Intenta con otra.`);
         }
 
-        const { latitude, longitude, name, country } = geoData.results[0];
+        const location = geoData.results[0];
+        const latitude = location.latitude;
+        const longitude = location.longitude;
+        const name = location.name;
+        const country = location.country || '';
 
-        // 2. Obtener el clima actual y pronóstico con Open-Meteo
-        const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min,time&timezone=auto`);
+        // 2. Obtener el clima actual y pronóstico con Open-Meteo asegurando las coordenadas
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min,time&timezone=auto`;
+        
+        const weatherResponse = await fetch(weatherUrl);
 
         if (!weatherResponse.ok) throw new Error('Error al obtener los datos del clima.');
 
@@ -71,13 +78,13 @@ function displayWeather(name, country, data) {
     weatherResult.classList.remove('hidden');
 
     // Clima actual
-    cityNameEl.textContent = `${name}, ${country || ''}`;
+    cityNameEl.textContent = `${name}, ${country}`;
     currentTempEl.textContent = `${data.current.temperature_2m}°C`;
     apparentTempEl.textContent = `Sensación térmica: ${data.current.apparent_temperature}°C`;
     windSpeedEl.textContent = `${data.current.wind_speed_10m} km/h`;
     humidityEl.textContent = `${data.current.relative_humidity_2m}%`;
     
-    // Interpretación básica del código del clima (weather_code)
+    // Interpretación del código del clima
     weatherDescEl.textContent = `Condición: ${getWeatherDescription(data.current.weather_code)}`;
 
     // Pronóstico de 3 días
@@ -99,19 +106,18 @@ function displayWeather(name, country, data) {
 }
 
 function getWeatherDescription(code) {
-    // Códigos estándar de WMO usados por Open-Meteo
     const codes = {
-        0: 'Despejado',
-        1: 'Principalmente despejado',
-        2: 'Parcialmente nublado',
-        3: 'Nublado',
-        45: 'Neblina',
-        51: 'Llovizna ligera',
-        61: 'Lluvia ligera',
-        71: 'Nieve ligera',
+        0: 'Despejado ',
+        1: 'Principalmente despejado ',
+        2: 'Parcialmente nublado ',
+        3: 'Nublado ',
+        45: 'Neblina ',
+        51: 'Llovizna ligera ',
+        61: 'Lluvia ligera ',
+        71: 'Nieve ligera ',
         95: 'Tormenta eléctrica'
     };
-    return codes[code] || `Código WMO: ${code}`;
+    return codes[code] || `Condición (WMO: ${code})`;
 }
 
 function formatDate(dateString) {

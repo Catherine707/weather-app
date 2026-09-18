@@ -1,4 +1,14 @@
-node_modules/
+# Configuración del sistema operativo
 .DS_Store
+Thumbs.db
+
+# Configuración personal de editores
 .vscode/
+.idea/
+
+# Variables y secretos locales
+.env
+.env.*
+
+# Archivos temporales
 *.log
